@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+						http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+						http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd
+						http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	<context:component-scan base-package="br.com.mvc.tarefas" />
+	<mvc:annotation-driven />
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	
+	<mvc:default-servlet-handler/>
+	
+	<mvc:interceptors>
+	<bean class="br.com.mvc.interceptor.AutorizadorInterceptador" />
+	</mvc:interceptors>
+	
+	<bean id="mysqlDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="org.mariadb.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3306/test"/>
+		<property name="username" value="usr_bd"/>
+		<property name="password" value="enterdb"/>
+	</bean>
+
+</beans>
